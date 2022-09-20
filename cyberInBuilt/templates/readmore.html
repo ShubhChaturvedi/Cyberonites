@@ -1,0 +1,72 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block css %}
+
+    <style>
+        .blogcontent{
+            width: 80vw;
+            margin: 0 auto;
+            padding: 5rem 0;
+        }
+
+        .title{
+            font-size: xxx-large;
+            padding: 1rem 0;
+        }
+
+        .thumbnail img{
+            width: 50rem;
+        }
+
+        .dateanduser{
+            display: flex;
+            justify-content: space-between;
+            font-size: xx-large;
+            padding: 1rem 0;
+        }
+
+        .content{
+            font-size: x-large;
+        }
+
+        .mar{
+            margin:1rem 0rem;
+        }
+
+        .pad{
+            margin: 0 0.5rem;
+            text-decoration: none;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <section class="blogcontent" style="color: white;">
+        <div class="title">{{post.title}}</div>
+        <div class="thumbnail">
+            <img src="/media/{{ post.image }}" alt="">
+        </div>
+        <div class="dateanduser">
+            <div class="username">@{{post.author}}</div>
+            <div class="dateandtime">{{post.timestamp}}</div>
+        </div>
+        <div class="content">
+            <p>
+                {{post.content|safe}}
+            </p>
+        </div>
+        {% if isAuthUser %}
+        <div class="deleteORedit mar">
+            <a href="/blogs/editPost/tokenNo/{{ post.sno }}" class="holobtn pad">Edit</a>
+            <a href="/blogs/deletePost/tokenNo/{{ post.sno }}" class="btn pad" id="deletePost">Delete Post</a>
+        </div>
+        {% endif %}
+    </section>
+    <script>
+        var deletePost = document.getElementById("deletePost");
+        deletePost.addEventListener("click",function(){
+
+            alert("Are you Sure you want to delete this Post?");
+        });
+    </script>
+{% endblock %}

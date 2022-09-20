@@ -1,0 +1,270 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block css %}
+
+<style>
+    body{
+        overflow-x: hidden;
+    }
+    .bg{
+        background: url("{% static 'plugins/background.jpg' %}") no-repeat center center;
+        background-size: cover;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bg::before{
+        content: "";
+        width: 100vw;
+        position: absolute;
+        height: 90vh;
+        background-color: rgba(0, 0, 0, 70%);
+    }
+
+    .searchblogs{
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .searchblogs > :nth-child(1){
+        width: 15rem;
+        transition: all 0.2s ease;
+    }
+
+    .searchblogs > :nth-child(1):hover{
+        transform: scale(1.05);
+        filter: drop-shadow(0px 0px 3px var(--color));
+    }
+
+    .searchblogs > :nth-child(2){
+        color: white;
+        margin: 1rem 0;
+        font-size: xx-large;
+    }
+
+    .search{
+        /* border: 2px solid red; */
+        position: absolute;
+        top: 66%;
+        left: 27%;
+    }
+
+    .search input{
+        font-size: larger;
+    }
+
+    .search input[type='text']{
+        width: 40vw;
+        padding: 8px 10px;
+        border-radius: 10px 0 0 10px;
+        background: #808080b8;
+        outline: none;
+        border: none;
+        color: black;
+        font-weight: 600;
+    }
+
+    .search input[type='submit']{
+        background: var(--color);
+        border: none;
+        padding: 8px 15px;
+        cursor: pointer;
+        border-radius: 0 8px 8px 0;
+        position: relative;
+        left: -1%;
+        font-weight: 600;
+        transition: all 0.2s ease-in;
+    }
+
+    .search input[type='submit']:hover{
+        transform: scale(1.1);
+    }
+
+    .userinfo{
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem 5rem;
+    }
+
+    .holopos{
+        display: flex;
+        align-items: center;
+        font-size: larger;
+        padding: 0.2rem 0.5rem;
+    }
+    
+    .holopos img{
+        width: 1.2em;
+        padding: 3px;
+    }
+
+    .blogs{
+        padding: 1rem 0;
+        /* border: 2px solid red; */
+        color: white;
+        display: flex;
+        flex-wrap: wrap;
+        width: 83vw;
+        margin: 0 auto;
+        justify-content: space-around;
+    }
+
+    .blogcontainer{
+        width: 21vw;
+        margin: 2rem 0;
+        /* border: 2px solid red; */
+        border-radius: 5px 5px 5px 5px;
+        background: var(--alt);
+        transition: all 0.2s ease;
+    }
+    
+    .blogcontainer:hover{
+        transform: scale(1.05);
+        border-radius: 0;
+        box-shadow: 0px 0px 33px -9px var(--color);
+    }
+    
+    .blogimg img{
+        width: 20.1rem;
+        border-radius: 5px 5px 0px 0px;
+    }
+
+    .blogtitle{
+        padding: 0rem 0.5rem;
+    }
+    
+    .blogtitle > :nth-child(1){
+        display: flex;
+        justify-content: end;
+    }
+    
+    .blogtitle > :nth-child(3){
+        padding: 0.5rem 0;
+    }
+    
+    .blogdescp{
+        padding: 0rem 0.5rem;
+    }
+
+    .readMore{
+        padding: 1.2rem 0.5rem;
+    }
+
+    #alert{
+      position: fixed;
+      bottom: 20%;
+      left: 45%;
+      font-size: large;
+      z-index: 101;
+      padding: 2px 11px;
+      list-style: none;
+      background: black;
+      width: 11vw;
+      color: white;
+      animation: slideme 2s ease-in-out;
+  }
+
+  @keyframes slideme{
+      0%{
+          opacity: 0;
+        }
+        
+        25%{
+          opacity: 100;   
+        } 
+        
+        75%{
+          opacity: 100;   
+        } 
+        
+        100%{
+          opacity: 0;   
+      }   
+  }
+
+  .pad{
+    margin: 0 0.5rem;
+  }
+</style>
+
+{% endblock %}
+{% block body %}
+{% if messages %}
+    <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" id="alert" {% endif %}>
+        {{ message }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+<section class="aboveblog">
+    <div class="bg">
+        <div class="searchblogs">
+            <img src="{% static 'plugins/logo.png' %}" alt="">
+            <h1>Welcome to <span style="color: var(--color);">Cyberonites</span></h1>
+            <div class="search">
+                <form action="/search" method="get">
+                    <input type="text" name="query" id="query" placeholder="Search Blogs Here" required>
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% if user.is_authenticated %}
+<div class="userinfo">
+    <button class="holobtn holopos pad">{{request.user}}<img src="{% static 'plugins/admin.png' %}" alt=""></button>
+    <a href="/addblogs" class="holobtn pad" style="text-decoration: none;">Add Blogs</a>
+    <a href="/handlelogout" class="btn pad" style="text-decoration: none;">Logout</a>
+</div>
+{% else %}
+<div class="userinfo">
+    <button class="holobtn holopos">Guest<img src="{% static 'plugins/admin.png' %}" alt=""></button>
+</div>
+{% endif %}
+{% if query %}
+    <h1 style="text-align: center; color: white;">Search Results for - <span style="color: var(--color);">&quot;{{ query }}&quot;</span></h1>    
+{% endif %}
+
+<section class="blogs">
+    {% if posts|length > 0 %}
+    {% for post in  posts %}
+    <div class="blogcontainer">
+        <div class="blogimg">
+            <img src="/media/{{ post.image }}" alt="">
+        </div>
+        <div class="blogcontent">
+            <div class="blogtitle">
+                <p>{{post.timestamp}}</p>
+                <h2 class="title">{{post.title}}</h2>
+                <p class="blogwriter">by @{{post.author}}</p>
+            </div>
+            <div class="blogdescp">
+                {{post.content|safe|truncatechars:250}}
+            </div>
+            <div class="readMore">
+                <a href="/blogs/{{post.slug}}" class="btn">Read More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+<div class="nopost" style="margin: 0 auto; color:var(--color)">
+  <h2><b style="font-size: xxx-large;">No posts!</b></h2>
+</div>
+  {% endif %}
+</section>
+<script>
+    setTimeout(function(){
+        if ($('#alert').length > 0) {
+            $('#alert').remove();
+        }
+    },1999);
+</script>
+
+
+{% endblock %}

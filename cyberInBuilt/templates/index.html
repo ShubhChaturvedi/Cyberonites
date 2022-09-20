@@ -1,0 +1,408 @@
+{% extends "basic.html" %}
+{% load static %}
+{% block css %}
+<style>
+    .home {
+        background-color: var(--bg);
+             display: flex;
+        justify-content: space-around;
+        padding: 10rem 4rem 10rem 4rem;
+    }
+
+    .homeContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .homevector {
+        display: flex;
+        justify-content: center;
+    }
+
+    .homeContent>:nth-child(2) {
+        letter-spacing: 1px;
+        font-size: 2.1rem;
+        color: #909090;
+    }
+
+    .homeContent>:nth-child(4) {
+        color: white;
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin: 1rem 0 2rem 0;
+    }
+
+    .btn {
+        border: 2px solid var(--color);
+        background-color: var(--color);
+        padding: 7px 15px;
+        cursor: pointer;
+        color: var(--bg);
+        font-weight: 800;
+        font-size: medium;
+        letter-spacing: 1px;
+        border-radius: 5px;
+    }
+
+    .bts{
+        text-align: center;
+        text-decoration: none;
+    }
+    .holobtn {
+        border: 2px solid var(--color);
+        background-color: var(--bg);
+        padding: 7px 15px;
+        cursor: pointer;
+        color: var(--color);
+        font-weight: 700;
+        font-size: medium;
+        letter-spacing: 1px;
+        border-radius: 5px;
+    }
+
+    .dynamic-txt {
+        height: 3rem;
+        line-height: 3rem;
+        overflow: hidden;
+        margin: 1rem 0;
+    }
+
+    .dynamic-txt li {
+        text-transform: uppercase;
+        color: var(--color);
+        list-style: none;
+        position: relative;
+        font-size: 2rem;
+        top: 0;
+        font-weight: 900;
+        animation: slide 16s steps(4) infinite;
+    }
+
+    @keyframes slide {
+        100% {
+            top: -190px;
+        }
+    }
+
+    .dynamic-txt li span {
+        position: relative;
+    }
+
+    .dynamic-txt li span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: var(--bg);
+        border-left: 2px solid var(--color);
+        animation: typing 4s steps(20) infinite;
+    }
+
+    @keyframes typing {
+        40% {
+            left: 100%;
+            margin: 0 -35px 0 35px;
+        }
+
+        70% {
+            left: 100%;
+            margin: 0 0px 0 35px;
+        }
+    }
+
+    .heading {
+        font-size: xx-large;
+        font-weight: 700;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    .cont_container {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .container {
+        margin: 2rem 0;
+        width: 12rem;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 0 15px 0 rgb(0 0 0 / 25%);
+        padding: 1rem;
+    }
+
+    .cont_container h1 {
+        text-align: center;
+        color: var(--color);
+        font-size: 2.5rem;
+    }
+
+    .wave_content {
+        background-color: var(--alt);
+        padding: 2rem 0;
+    }
+
+    .about {
+        background-color: var(--bg);
+        color: white;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-around;
+
+    }
+
+    .leftAbout {
+        width: 50vw;
+    }
+
+    .aboutContent {
+        font-size: 1.2rem;
+        padding: 1rem 2rem;
+        text-align: justify;
+        font-weight: 700;
+    }
+
+    .trailer {
+        display: flex;
+        width: 50vw;
+        background: url(/static/plugins/laptop3.png) center center no-repeat;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .trailer video {
+        width: 29rem;
+        position: relative;
+        top: -0.5rem;
+    }
+
+    .desig {
+        font-size: larger;
+        font-weight: 900;
+        text-align: right;
+        padding: 1rem 0;
+    }
+
+    .upcoming_events {
+        padding: 3rem 0;
+        background-color: var(--bg);
+        color: white;
+    }
+
+    .upcoming_events h1 {
+        text-align: center;
+        font-size: 2rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .upcoming_events h1::after {
+        content: "";
+        border: 2.5px solid var(--color);
+        width: 5rem;
+        margin: 0.5rem auto;
+        border-radius: 5px;
+        background: var(--color);
+    }
+
+    .upcoming_events h2 {
+        text-align: center;
+        margin: 7rem 0;
+        font-size: 3rem;
+        text-transform: uppercase;
+    }
+
+    .cards {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        width: 90vw;
+        margin: 0 auto;
+        padding: 5rem 0;
+    }
+
+    .card_height {
+        height: 28rem;
+        margin: 1rem 0;
+    }
+
+    .card_cont {
+        background: var(--alt);
+        display: flex;
+        flex-direction: column;
+        width: 20rem;
+        padding: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 0 15px 0 rgb(0 0 0 / 35%);
+        transition: all 2s ease;
+    }
+
+    .card_cont div {
+        margin: 0.3rem 0;
+    }
+
+    .card_img {
+        display: flex;
+        justify-content: center;
+    }
+
+    .card_img img {
+        width: 10rem;
+        border-radius: 50%;
+    }
+
+    .card_title h3 {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 2rem;
+    }
+    .card_title h3::after{
+        content: "";
+        border: 2.5px solid var(--color);
+        width: 5rem;
+        margin: 0.5rem auto;
+        border-radius: 5px;
+        background: var(--color);
+    }
+
+    .card_desgn h4 {
+        text-align: center;
+        color: var(--color);
+        font-size: 1.2rem;
+    }
+
+    .desc_container {
+        display: none;
+    }
+
+    .card_cont:hover>.desc_container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card_descp p {
+        text-align: justify;
+        font-weight: 700;
+    }
+
+    .card_contact {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .card_contact img {
+        width: 2rem;
+    }
+    .extra{
+        padding-top: 5rem;
+    }
+</style>
+{% endblock %}
+{% block body %}
+<section id="home" class="home">
+    <div class="homeContent">
+        <h2 style="color:white;font-size: 2rem; margin: 0.5rem 0; text-transform: uppercase;">Welcome to the world of
+            CyberSecurity!</h2>
+        <h1>Want to learn?</h1>
+        <ul class="dynamic-txt">
+            <li><span>Reverse Engineering</span></li>
+            <li><span>Android Panitration Testing</span></li>
+            <li><span>v8 Engine Exploit</span></li>
+            <li><span>Cyber Insights</span></li>
+        </ul>
+        <p>“Technology trust is a good thing, but control is a better one.”</p>
+        <a href="#footer" style="width: 12rem; font-size: larger; " class="btn bts">Subscribe</a>
+
+    </div>
+    <div class="homevector">
+        <img style=" width: 35rem;" src="{% static 'plugins/security.png' %}" alt="">
+    </div>
+</section>
+<section class="waves">
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#0b9bc3" fill-opacity="1" d="M0,32L1440,192L1440,320L0,320Z"></path>
+    </svg> -->
+    <div style="color: white;" class="wave_content">
+        <div class="heading">
+            GLA's Most renounced <Span style="color: var(--color); font-family: cursive;">CYBER SECURITY</Span> club
+        </div>
+        <div class="cont_container">
+            <div class="container">
+                <h2>Council Members</h2>
+                <h1>30+</h1>
+            </div>
+            <div class="container">
+                <h2>Active Participants</h2>
+                <h1>180+</h1>
+            </div>
+            <div class="container">
+                <h2>Held Events</h2>
+                <h1>5+</h1>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="about" class="about extra" >
+    <div class="leftAbout">
+
+        <div class="heading">
+            with<Span style="color: var(--color); font-family: cursive;"> REFERENCE </Span> to club
+        </div>
+        <div class="aboutContent">
+            "Cybersecurity is a subject that requires logic, knowledge, thought and commitment."- Ian R. McAndrew"
+            Cyberonites is the official cyber security club of GLA University. It enables the members to enhance and develop knowledge and skills in various aspects of cyber security such as network security, penetration testing,  cryptography and many more....
+            It aims to enhance and sustain a fundamentally secure environment for IT based administration in organization by enhancing knowledge and designing policies in the field of cyber security.
+            Our club work under mentorship of Mr. Asheesh Sir, Assistant professor under CEA Department, He is a passionate professor for the subject, teaching and learning, with majestic thoughts and helpful nature.
+            Seniors are always cooperative and encourage us to be more productive and efficient.
+            Our club organize workshops/seminars to lead better understanding of cyber security technology and adoption that can help consolidate and synthesize existing resources and best practices to support policy makers’ ability to understand and implement cyber security measures that work best for the organization.
+            <div class="desig">
+                --Cyberonites
+            </div>
+        </div>
+    </div>
+    <div class="trailer">
+        <video controls> 
+            <source src="{% static 'plugins/trailer.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+</section>
+<section id="upcomingevents" class="upcoming_events extra" style="background-color: var(--alt);color: white; height: 45vh;">
+    <h1>Upcoming Events</h1>
+    <h2>Comming Soon!</h2>
+</section>
+
+<section id="team"  style="background-color: var(--bg);" class="ourteam extra">
+    <div class="upcoming_events">
+        <h1>Our Team</h1>
+        <div class="cards">
+            {% for staff in staff %}
+            <div class="card_height">
+                <div class="card_cont">
+                    <div class="card_img">
+                        <img src="/media/{{ staff.profile }}" alt="">
+                    </div>
+                    <div class="card_title">
+                        <h3>{{staff.name}}</h3>
+                    </div>
+                    <!-- <div class="card_desgn">
+                        <h4>{{staff.designation}}</h4>
+                    </div> -->
+                    <section class="desc_container">
+                        <div class="card_descp">
+                            <p>{{staff.description}}</p>
+                        </div>
+                        <div class="card_contact">
+                            <a target="_blank" href="{{staff.linkedin}}"><img src="{% static 'plugins/LinkedIN.png' %}" alt=""></a>
+                            <a target="_blank" href="{{staff.github}}"><img src="{% static 'plugins/Github.png' %}" alt=""></a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

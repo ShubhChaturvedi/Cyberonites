@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Merriweather:300,400,400i,700,800%7CLato:300,400,400i,700,800"
+        media="all">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'plugins/logo.png' %}">
+    <title>Cyberonites</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {% load static %}
+</head>
+<style>
+    :root {
+        --bg: #010817;
+        --color: #0b9bc3;
+        --alt : #020b1e;
+    }
+    * {
+        scroll-behavior: smooth;
+        margin: 0;
+        padding: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    #preloader{
+        background: #0d0121 url("{% static 'plugins/preloader.gif' %}") no-repeat center center;
+        z-index: 100;
+        background-size: 30%;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+    }
+
+    body{
+        background-color: var(--bg);
+    }
+    
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: var(--color);
+    }
+
+    .logo {
+        display: flex;
+        /* justify-content: center; */
+        align-items: center;
+    }
+
+    .logo img {
+        width: 12rem;
+    }
+
+    .nav {
+        display: flex;
+        position: fixed;
+        top: 0;
+        background-color: var(--bg);
+        width: 100vw;
+        justify-content: space-around;
+        padding: 15px;
+        box-shadow: 0 0 15px 0 rgb(0 0 0 / 25%);
+        z-index: 2;
+    }
+
+    .menu ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+    }
+
+    .menu a {
+        text-decoration: none;
+        margin: auto 2rem;
+        font-size: large;
+        color: white;
+        font-weight: 700;
+    }
+    .menu a:hover{
+        color: var(--color);
+    }
+    .btn {
+        border: 2px solid var(--color);
+        background-color: var(--color);
+        padding: 7px 15px;
+        cursor: pointer;
+        color: var(--bg);
+        font-weight: 800;
+        font-size: medium;
+        letter-spacing: 1px;
+        border-radius: 5px;
+        text-decoration:none;
+    }
+
+    .bts{
+        text-align: center;
+        text-decoration: none;
+    }
+    .holobtn {
+        border: 2px solid var(--color);
+        background-color: var(--bg);
+        padding: 7px 15px;
+        cursor: pointer;
+        color: var(--color);
+        font-weight: 700;
+        font-size: medium;
+        letter-spacing: 1px;
+        border-radius: 5px;
+    }
+
+    /* footer  */
+    .footer {
+        height: 55vh;
+    }
+
+    .copyright {
+        background: var(--alt);
+        font-size: larger;
+        position: relative;
+        top: -5px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+    }
+
+    .full_footer_container {
+        background: var(--alt);
+        color: white;
+        position: relative;
+        top: -4px;
+        border-bottom: 1px solid rgb(181, 180, 180);
+        display: flex;
+        height: 22rem;
+    }
+
+    .c_1 {
+        width: 19rem;
+        /* border: 2px solid red; */
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 10rem;
+        position: relative;
+        top: 16%;
+        left: 2%;
+    }
+
+    .c_1 h2 {
+        display: flex;
+        /* border-bottom: 1px solid cadetblue; */
+        justify-content: center;
+        width: 14rem;
+        letter-spacing: 4px;
+        height: 2.6rem;
+        width: 15rem;
+    }
+
+    .c_1 p {
+        text-align: left;
+        padding: 1rem 4rem 0rem 65px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .c_1 p span {
+        color: rgb(224, 224, 0);
+    }
+
+    .c_2 {
+        position: relative;
+        top: 19%;
+        left: 7%;
+        width: 12rem;
+        height: 12rem;
+    }
+
+
+    .c_2 h3 {
+        margin-bottom: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    .c_2 ul li {
+        /* border: 2px solid red; */
+        font-size: 18px;
+        /* font-weight: 600; */
+        list-style: none;
+        letter-spacing: 1px;
+        padding: 5px 0rem;
+    }
+
+    .c_3 {
+        /* border: 2px solid red; */
+        /* display: inline-block; */
+        position: relative;
+        top: 19%;
+        left: 9%;
+        width: 12rem;
+        height: 12rem;
+    }
+
+
+    .c_3 h3 {
+        margin-bottom: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    .c_3 ul li {
+        /* border: 2px solid red; */
+        font-size: 18px;
+        /* font-weight: 600; */
+        list-style: none;
+        letter-spacing: 1px;
+        padding: 5px 0rem;
+    }
+
+    .c_4 {
+        /* border: 2px solid red; */
+        /* display: inline-block; */
+        position: relative;
+        top: 19%;
+        left: 7.5%;
+        width: 12rem;
+        height: 12rem;
+    }
+
+
+    .c_4 h3 {
+        /* border: 2px solid red; */
+        margin-bottom: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    .c_4 ul li {
+        /* border: 2px solid red; */
+        font-size: 18px;
+        /* font-weight: 600; */
+        list-style: none;
+        letter-spacing: 1px;
+        padding: 5px 0rem;
+    }
+
+    .c_5 {
+        /* border: 2px solid red; */
+        /* display: inline-block; */
+        position: relative;
+        top: 19%;
+        left: 15%;
+        width: 25rem;
+        height: 12rem;
+    }
+
+
+    .c_5 h3 {
+        /* border: 2px solid red; */
+        margin-bottom: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    .c_5 input {
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: none;
+        padding: 0.5rem 0.2rem;
+        width: 15rem;
+        display: block;
+        color: white;
+        font-size: large;
+    }
+
+    .c_5 input:focus {
+        outline: none;
+    }
+
+    ::-webkit-input-placeholder {
+        color: #fff;
+        font-size: large;
+    }
+    .c_5 button {
+        margin-top: 1.5rem;
+        font-weight: 600;
+    }
+</style>
+{% block css %}{% endblock %}
+
+<body>
+    <div id="preloader"></div>
+    <section class="nav">
+        <div class="logo">
+            <a href="#home" style="text-decoration: none; color: white; text-transform: uppercase;"><h1>C y b e r <span style="color: var(--color);">o n i t e s</span></h1></a>
+        </div>
+        <div class="menu">
+            <ul>
+                <button class="btn">Join now</button>
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/#about">About us</a></li>
+                <li><a href="/#upcomingevents">Upcoming events</a></li>
+                <li><a href="/#team">Team</a></li>
+                <li><a href="/blogs">Blogs</a></li>
+                <a style="color: var(--color);" href="#footer" class="holobtn">Subscribe</a>
+            </ul>
+        </div>
+    </section>
+    
+    {% block body %}{% endblock %}
+    <section class="footer" id="footer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="var(--alt)" fill-opacity="1"
+                d="M0,192L60,208C120,224,240,256,360,266.7C480,277,600,267,720,224C840,181,960,107,1080,106.7C1200,107,1320,181,1380,218.7L1440,256L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+            </path>
+        </svg>
+        <div class="full_footer_container">
+            <div class="c_1">
+                <h2>CYBERONITES</h2>
+                <p>Your data is your power, and it needs to <span>be protected</span></p>
+            </div>
+            <div class="c_2">
+                <h3>EXPLORE</h3>
+                <ul>
+                    <li>Home</li>
+                    <li>About Us</li>
+                    <li>Upcoming Events</li>
+                    <li>Gallery</li>
+                </ul>
+            </div>
+            <div class="c_3">
+                <h3>LEGALs</h3>
+                <ul>
+                    <li>Terms</li>
+                    <li>Privacies</li>
+                </ul>
+            </div>
+            <div class="c_4">
+                <h3>OFFICIALS</h3>
+                <ul>
+                    <li>xyz@cybronites.com</li>
+                    <!-- <li>abc@cybronites.com</li> -->
+                </ul>
+            </div>
+            <div class="c_5">
+                <h3>NEWSLETTER</h3>
+                <input type="email" placeholder="Enter Your Email">
+                <button style="background-color: var(--alt);" class="holobtn">Subscribe</button>
+            </div>
+        </div>
+        <p class="copyright">&#169; 2022 Contributed by @Shubh and @Tanishq</p>
+    </section>
+    <script>
+        var loader = document.getElementById("preloader");
+        window.addEventListener("load", function () {
+            loader.style.display="none";
+        });
+    </script>
+</body>
+
+</html>
